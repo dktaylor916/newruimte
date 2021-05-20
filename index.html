@@ -9,6 +9,8 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
 <script src="https://d3js.org/d3.v4.js"></script>
 <style>
+.tick {opacity: 0;}
+.domain{opacity: 0;}
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; z-index: 0; }
 #testbut {position:absolute; z-index: 1}
@@ -16,6 +18,7 @@ body { margin: 0; padding: 0; }
 </style>
 </head>
 <body>
+
 <style>
 .legend {
 background-color: #fff;
@@ -381,7 +384,7 @@ function none_but() {
 var container = map.getCanvasContainer()
 // set the dimensions and margins of the graph
 var margin = {top: 30, right: 30, bottom: 70, left: 60},
-    width = 500 - margin.left - margin.right,
+    width = 400 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -394,6 +397,35 @@ var svg = d3.select(container)
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
+svg.append('image')
+    .attr('xlink:href', 'car.svg')
+    .attr('position','absolute')
+    .attr('x',-50)
+    .attr('y',60)
+    .attr('width', 40)
+    .attr('height', 40)
+svg.append('image')
+    .attr('xlink:href', 'park.svg')
+    .attr('position','absolute')
+    .attr('x',-50)
+    .attr('y',15)
+    .attr('width', 35)
+    .attr('height', 35)
+    svg.append('image')
+    .attr('xlink:href', 'dog.svg')
+    .attr('position','absolute')
+    .attr('x',-50)
+    .attr('y',105)
+    .attr('width', 30)
+    .attr('height', 30)
+    svg.append('image')
+    .attr('xlink:href', 'bike.svg')
+    .attr('position','absolute')
+    .attr('x',-50)
+    .attr('y',150)
+    .attr('width', 40)
+    .attr('height', 40)
+
 
 // Initialize the X axis
 var getx = d3.scaleLinear()
@@ -401,13 +433,15 @@ var getx = d3.scaleLinear()
     .range([ 0, width])
 var xAxis = svg.append("g")
 .attr("transform", "translate(0," + height + ")")
-    
+
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(getx))
     .selectAll("text")
       .attr("transform", "translate(-10,0)rotate(-45)")
-      .style("text-anchor", "end");
+      .attr('opacity',0)
+      .style("text-anchor", "end")
+   
 
 // Initialize the Y axis
  var gety = d3.scaleBand()
